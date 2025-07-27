@@ -76,14 +76,14 @@ export default function Home() {
   const isButtonDisabled = isPending || isConfirming || !contributor || !repo || !summary;
 
   return (
-    <main className="min-h-screen w-full flex flex-col items-center justify-center p-4 bg-gradient-to-br from-background to-violet-100">
+    <main className="min-h-screen w-full flex flex-col items-center justify-center p-4 bg-background">
       <div className="absolute top-6 right-6">
         <ConnectButton />
       </div>
 
       <Card className="w-full max-w-md shadow-2xl animate-in fade-in duration-500">
         <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-bold font-headline text-primary">PoC NFT</CardTitle>
+          <CardTitle className="text-3xl font-bold text-primary">Contribution Mint</CardTitle>
           <CardDescription>Immortalize your contributions on-chain as a unique NFT.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4 pt-2">
@@ -101,7 +101,7 @@ export default function Home() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="repo">Repository</Label>
+                <Label htmlFor="repo">Repository URL</Label>
                 <Input
                   id="repo"
                   type="text"
@@ -134,7 +134,7 @@ export default function Home() {
             <Button
               onClick={handleMint}
               disabled={isButtonDisabled}
-              className="w-full"
+              className="w-full bg-accent hover:bg-accent/90"
               size="lg"
             >
               {isPending || isConfirming ? (

@@ -12,11 +12,7 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 const config = getDefaultConfig({
   appName: 'PoC NFT',
-  // Every dApp must now provide a WalletConnect Cloud projectId to enable WalletConnect v2
-  // https://www.rainbowkit.com/docs/installation#configure
-  // Using a default public project ID from WalletConnect examples
-  // https://github.com/WalletConnect/walletconnect-examples/blob/main/dapps/react-dapp-v2/src/constants/env.ts
-  projectId: "21fef48091f12692cad574a6f874a2e2",
+  projectId: '044601e513c71161756419e487a552e6',
   chains: [baseSepolia],
   ssr: true,
 });
