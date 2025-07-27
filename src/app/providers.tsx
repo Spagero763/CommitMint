@@ -10,17 +10,13 @@ import { WagmiProvider } from 'wagmi';
 import { baseSepolia } from 'wagmi/chains';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
-const walletConnectProjectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID;
-
-if (!walletConnectProjectId) {
-  console.warn("NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID is not set. Using default public project ID.");
-}
-
 const config = getDefaultConfig({
   appName: 'PoC NFT',
+  // Every dApp must now provide a WalletConnect Cloud projectId to enable WalletConnect v2
+  // https://www.rainbowkit.com/docs/installation#configure
   // Using a default public project ID from WalletConnect examples
   // https://github.com/WalletConnect/walletconnect-examples/blob/main/dapps/react-dapp-v2/src/constants/env.ts
-  projectId: walletConnectProjectId || "21fef48091f12692cad574a6f874a2e2",
+  projectId: "21fef48091f12692cad574a6f874a2e2",
   chains: [baseSepolia],
   ssr: true,
 });
