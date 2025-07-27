@@ -13,7 +13,7 @@ import { Loader2, ExternalLink } from "lucide-react";
 const CONTRACT_ADDRESS = "0x029549CA7179769Bd934B41F4c8F17979A743DE6";
 
 export default function Home() {
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
   const { toast } = useToast();
   const [contributor, setContributor] = useState("");
   const [repo, setRepo] = useState("");
@@ -22,6 +22,14 @@ export default function Home() {
   const { data: hash, error: writeError, isPending, writeContract, reset } = useWriteContract();
 
   const handleMint = async () => {
+    if (!isConnected) {
+        toast({
+            title: "Wallet Not Connected",
+            description: "Please connect your wallet to mint an NFT.",
+            variant: "destructive",
+        });
+        return;
+    }
     if (!contributor || !repo || !summary) {
       toast({
         title: "Missing fields",
@@ -69,7 +77,7 @@ export default function Home() {
     if (finalError) {
       toast({
         title: "Error Minting NFT",
-        description: finalError.shortMessage || finalError.message,
+        description: finalError.message,
         variant: "destructive",
       });
       reset();
