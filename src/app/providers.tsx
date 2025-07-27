@@ -12,7 +12,7 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 const config = getDefaultConfig({
   appName: 'PoC NFT',
-  projectId: 'a55c20d35588a4497a77e70a24846618', 
+  projectId: 'YOUR_PROJECT_ID', 
   chains: [baseSepolia],
   ssr: true,
 });
