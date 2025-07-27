@@ -10,9 +10,17 @@ import { WagmiProvider } from 'wagmi';
 import { baseSepolia } from 'wagmi/chains';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
+const walletConnectProjectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID;
+
+if (!walletConnectProjectId) {
+  console.warn("NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID is not set. Using default public project ID.");
+}
+
 const config = getDefaultConfig({
   appName: 'PoC NFT',
-  projectId: 'YOUR_PROJECT_ID', 
+  // Using a default public project ID from WalletConnect examples
+  // https://github.com/WalletConnect/walletconnect-examples/blob/main/dapps/react-dapp-v2/src/constants/env.ts
+  projectId: walletConnectProjectId || "21fef48091f12692cad574a6f874a2e2",
   chains: [baseSepolia],
   ssr: true,
 });
