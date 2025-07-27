@@ -76,7 +76,7 @@ export default function Home() {
     }
   }, [isConfirmed, writeError, receiptError, hash, toast, reset]);
   
-  const isButtonDisabled = isPending || isConfirming || !contributor || !repo || !summary;
+  const isButtonDisabled = isPending || isConfirming;
 
   return (
     <main className="min-h-screen w-full flex flex-col items-center justify-center p-4 bg-background">
@@ -90,8 +90,6 @@ export default function Home() {
           <CardDescription>Immortalize your contributions on-chain as a unique NFT.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4 pt-2">
-          {isConnected ? (
-            <>
               <div className="space-y-2">
                 <Label htmlFor="contributor">Contributor Handle</Label>
                 <Input
@@ -125,18 +123,11 @@ export default function Home() {
                   disabled={isPending || isConfirming}
                 />
               </div>
-            </>
-          ) : (
-            <div className="text-center text-muted-foreground p-8 border-dashed border-2 rounded-lg">
-                <p>Please connect your wallet to mint an NFT.</p>
-            </div>
-          )}
         </CardContent>
-        {isConnected && (
-            <CardFooter>
+        <CardFooter>
             <Button
               onClick={handleMint}
-              disabled={isButtonDisabled}
+              disabled={isButtonDisabled || !contributor || !repo || !summary}
               className="w-full bg-accent hover:bg-accent/90"
               size="lg"
             >
@@ -150,7 +141,6 @@ export default function Home() {
               )}
             </Button>
           </CardFooter>
-        )}
       </Card>
       <footer className="absolute bottom-4 text-center text-muted-foreground text-sm">
         Contract on Base Sepolia Network
