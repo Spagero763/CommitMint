@@ -19,7 +19,7 @@ export default function Home() {
   const [repo, setRepo] = useState("");
   const [summary, setSummary] = useState("");
 
-  const { data: hash, error, isPending, writeContract } = useWriteContract();
+  const { data: hash, error: writeError, isPending, writeContract, reset } = useWriteContract();
 
   const handleMint = async () => {
     if (!contributor || !repo || !summary) {
@@ -38,7 +38,7 @@ export default function Home() {
     });
   };
 
-  const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
+  const { isLoading: isConfirming, isSuccess: isConfirmed, error: receiptError } = useWaitForTransactionReceipt({
       hash,
   });
   
@@ -59,19 +59,22 @@ export default function Home() {
           </Button>
         ) : undefined,
       });
-      // Reset form
       setContributor("");
       setRepo("");
       setSummary("");
+      reset(); 
     }
-    if (error) {
+    
+    const finalError = writeError || receiptError;
+    if (finalError) {
       toast({
         title: "Error Minting NFT",
-        description: error.shortMessage || error.message,
+        description: finalError.shortMessage || finalError.message,
         variant: "destructive",
       });
+      reset();
     }
-  }, [isConfirmed, error, hash, toast]);
+  }, [isConfirmed, writeError, receiptError, hash, toast, reset]);
   
   const isButtonDisabled = isPending || isConfirming || !contributor || !repo || !summary;
 
